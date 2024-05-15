@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Houses for Rent</title>
+    <style>
+      .house-item {
+        border: 1px solid #ddd;
+        margin: 20px;
+        padding: 10px;
+        width: calc(33.333% - 40px);
+        box-sizing: border-box;
+        float: left;
+        background-color: #f9f9f9;
+      }
+      .house-item img {
+        max-width: 100%;
+        height: auto;
+      }
+      .house-item h4 {
+        margin: 10px 0;
+        color: #006c7a;
+      }
+      .house-item p {
+        margin: 5px 0;
+      }
+      .house-item strong {
+        color: #cf8600;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Houses for Rent</h1>
+    <div id="house-list"></div>
+
+    <script>
+      const housesJSON = `[
+      {
+                "address": "123 Đào Tấn, Hà Nội",
+                "rooms": 3,
+                "image": "https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
+                "description": "A beautiful house with modern amenities.",
+                "price": "1200 USD/month"
+            },
+            {
+                "address": "30 Nguyễn Khuyến, Hà Nội",
+                "rooms": 4,
+                "image": "https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
+                "description": "Spacious house with a garden.",
+                "price": "1500 USD/month"
+            },
+            {
+                "address": "78 Hai Bà Trưng, Hà Nội",
+                "rooms": 2,
+                "image": "https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
+                "description": "Cozy house near the beach.",
+                "price": "1000 USD/month"
+            },
+            {
+                "address": "20 Cầu Giấy, Hà Nội",
+                "rooms": 5,
+                "image": "https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
+                "description": "Luxurious house with a pool.",
+                "price": "2000 USD/month"
+            },
+            {
+                "address": "31 Ngô Sĩ Liên, Hà Nội",
+                "rooms": 3,
+                "image": "https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
+                "description": "Modern house in a quiet neighborhood.",
+                "price": "1300 USD/month"
+            },
+            {
+                "address": "30 Trần Phú, Hà Nội",
+                "rooms": 4,
+                "image": "https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
+                "description": "House with a beautiful sea view.",
+                "price": "1700 USD/month"
+            }
+        ]`;
+
+      const houses = JSON.parse(housesJSON);
+      const houseList = document.getElementById("house-list");
+
+      for (let i = 0; i < houses.length; i++) {
+        const house = houses[i];
+        const houseDiv = document.createElement("div");
+        houseDiv.classList.add("house-item");
+        houseDiv.innerHTML = `
+                <img src="${house.image}" alt="House Image">
+                <h4>${house.address}</h4>
+                <p><strong>Rooms:</strong> ${house.rooms}</p>
+                <p><strong>Description:</strong> ${house.description}</p>
+                <p><strong>Price:</strong> ${house.price}</p>
+            `;
+        houseList.appendChild(houseDiv);
+      }
+    </script>
+  </body>
+</html>

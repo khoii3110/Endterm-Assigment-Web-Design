@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House for Rent</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      header {
+        background-color: #006c7a;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+      header img {
+        width: 50px;
+        height: 50px;
+        vertical-align: middle;
+      }
+      nav {
+        background-color: #cf8600;
+      }
+      nav ol {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+      }
+      nav ol li {
+        margin: 0 15px;
+        padding: 14px 20px;
+      }
+      nav ol li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .slogan {
+        margin-top: 10px;
+        font-style: italic;
+        color: #cf8600;
+      }
+      .highlight {
+        width: 100%;
+        height: 200px;
+        border: 2px solid #006c7a;
+        background-color: #cf8600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+        transition: all 0.3s ease;
+        color: white;
+      }
+      .highlight:hover {
+        background-color: #006c7a;
+        border-color: #cf8600;
+        font-style: italic;
+      }
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
+      .houses {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .house-item {
+        border: 1px solid #ddd;
+        margin: 10px;
+        padding: 10px;
+        width: calc(33.333% - 20px);
+        box-sizing: border-box;
+        background-color: #f9f9f9;
+      }
+      .house-item img {
+        max-width: 100%;
+        height: auto;
+      }
+      .house-item h4 {
+        margin: 10px 0;
+        color: #006c7a;
+      }
+      .house-item p {
+        margin: 5px 0;
+      }
+      .house-item strong {
+        color: #cf8600;
+      }
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        margin: 20px auto;
+      }
+      form .form-group {
+        margin-bottom: 15px;
+      }
+      form .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      form .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      form .form-group input:focus {
+        border-color: #006c7a;
+      }
+      form .error {
+        color: red;
+        font-size: 14px;
+      }
+      form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #006c7a;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      form button:hover {
+        background-color: #004f59;
+      }
+      footer {
+        background-color: #3b5e4e;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+      }
+      @media (max-width: 414px) {
+        nav ol {
+          flex-direction: column;
+        }
+        .house-item {
+          width: 100%;
+        }
+      }
+      @media (min-width: 415px) and (max-width: 1024px) {
+        .house-item {
+          width: calc(50% - 20px);
+        }
+      }
+      @media (min-width: 1025px) and (max-width: 1440px) {
+        .house-item {
+          width: calc(33.333% - 20px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>House for Rent</h1>
+      <p class="slogan">Ở đây chúng tôi cho thuê nhà với giá cả hợp lý</p>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="30"
+        height="30"
+        style="vertical-align: middle; margin-left: 5px"
+      >
+        <path
+          fill="white"
+          d="M12 3L1 9l11 6 11-6-11-6zM1 11.95V21h10V14h2v7h10V11.95L12 18l-11-6.05z"
+        />
+      </svg>
+    </header>
+
+    <nav>
+      <ol>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Listings</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">About</a></li>
+      </ol>
+    </nav>
+
+    <div class="container">
+      <div class="highlight">Special Offer: 20% off for the first month!</div>
+
+      <h2>Available Houses</h2>
+      <div class="houses" id="house-list"></div>
+
+      <h2>Register to Rent</h2>
+      <form id="rentalForm">
+        <div class="form-group">
+          <label for="fullname">Họ và tên</label>
+          <input type="text" id="fullname" name="fullname" />
+          <div class="error" id="fullnameError"></div>
+        </div>
+        <div class="form-group">
+          <label for="email">Địa chỉ email</label>
+          <input type="email" id="email" name="email" />
+          <div class="error" id="emailError"></div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Số điện thoại</label>
+          <input type="tel" id="phone" name="phone" />
+          <div class="error" id="phoneError"></div>
+        </div>
+        <div class="form-group">
+          <label for="address">Địa chỉ muốn thuê</label>
+          <input type="text" id="address" name="address" />
+          <div class="error" id="addressError"></div>
+        </div>
+        <div class="form-group">
+          <label for="price">Mức giá mong muốn</label>
+          <input type="number" id="price" name="price" />
+          <div class="error" id="priceError"></div>
+        </div>
+        <button type="submit">Đăng ký</button>
+      </form>
+    </div>
+
+    <footer>
+      <p>Nguyễn Minh Khôi - 11212899 - Lớp học phần Thiết Kế Web</p>
+    </footer>
+
+    <script>
+      const housesJSON = `[
+            {
+                "address": "123 Đào Tấn, Hà Nội",
+                "rooms": 3,
+                "image": "https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
+                "description": "A beautiful house with modern amenities.",
+                "price": "1200 USD/month"
+            },
+            {
+                "address": "30 Nguyễn Khuyến, Hà Nội",
+                "rooms": 4,
+                "image": "https://media.tapchitaichinh.vn/w1480/images/upload/phunganhtuan/2015_07_13/phong-thuy-cho-nha-o-8_CLCV.jpg",
+                "description": "Spacious house with a garden.",
+                "price": "1500 USD/month"
+            },
+            {
+                "address": "78 Hai Bà Trưng, Hà Nội",
+                "rooms": 2,
+                "image": "https://luxviet.vn/wp-content/uploads/2021/09/Mau-nha-cap-4-dep-150m2-4-phong-ngu-luxviet-11038-01.jpg",
+                "description": "Cozy house near the beach.",
+                "price": "1000 USD/month"
+            },
+            {
+                "address": "20 Cầu Giấy, Hà Nội",
+                "rooms": 5,
+                "image": "https://media.tapchitaichinh.vn/w1480/images/upload/phunganhtuan/2015_07_13/phong-thuy-cho-nha-o-8_CLCV.jpg",
+                "description": "Luxurious house with a pool.",
+                "price": "2000 USD/month"
+            },
+            {
+                "address": "31 Ngô Sĩ Liên, Hà Nội",
+                "rooms": 3,
+                "image": "https://media.tapchitaichinh.vn/w1480/images/upload/phunganhtuan/2015_07_13/phong-thuy-cho-nha-o-8_CLCV.jpg",
+                "description": "Modern house in a quiet neighborhood.",
+                "price": "1300 USD/month"
+            },
+            {
+                "address": "30 Trần Phú, Hà Nội",
+                "rooms": 4,
+                "image": "https://media.tapchitaichinh.vn/w1480/images/upload/phunganhtuan/2015_07_13/phong-thuy-cho-nha-o-8_CLCV.jpg",
+                "description": "House with a beautiful sea view.",
+                "price": "1700 USD/month"
+            }
+        ]`;
+
+      const houses = JSON.parse(housesJSON);
+      const houseList = document.getElementById("house-list");
+
+      for (let i = 0; i < houses.length; i++) {
+        const house = houses[i];
+        const houseDiv = document.createElement("div");
+        houseDiv.className = "house-item";
+
+        houseDiv.innerHTML = `
+                <img src="${house.image}" alt="House Image">
+                <h4>${house.address}</h4>
+                <p><strong>Rooms:</strong> ${house.rooms}</p>
+                <p>${house.description}</p>
+                <p><strong>Price:</strong> ${house.price}</p>
+            `;
+
+        houseList.appendChild(houseDiv);
+      }
+
+      document
+        .getElementById("rentalForm")
+        .addEventListener("submit", function (event) {
+          let isValid = true;
+
+          // Clear previous errors
+          document.querySelectorAll(".error").forEach(function (el) {
+            el.textContent = "";
+          });
+
+          // Validate full name
+          const fullname = document.getElementById("fullname").value;
+          if (fullname.trim() === "") {
+            isValid = false;
+            document.getElementById("fullnameError").textContent =
+              "Họ và tên không được để trống";
+          }
+
+          // Validate email
+          const email = document.getElementById("email").value;
+          const emailPattern =
+            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+          if (!emailPattern.test(email)) {
+            isValid = false;
+            document.getElementById("emailError").textContent =
+              "Email không hợp lệ";
+          }
+
+          // Validate phone number
+          const phone = document.getElementById("phone").value;
+          const phonePattern = /^[0-9]{10,11}$/;
+          if (!phonePattern.test(phone)) {
+            isValid = false;
+            document.getElementById("phoneError").textContent =
+              "Số điện thoại không hợp lệ";
+          }
+
+          // Validate address
+          const address = document.getElementById("address").value;
+          if (address.trim() === "") {
+            isValid = false;
+            document.getElementById("addressError").textContent =
+              "Địa chỉ không được để trống";
+          }
+
+          // Validate price
+          const price = document.getElementById("price").value;
+          if (price.trim() === "" || isNaN(price) || price <= 0) {
+            isValid = false;
+            document.getElementById("priceError").textContent =
+              "Mức giá không hợp lệ";
+          }
+
+          if (!isValid) {
+            event.preventDefault();
+          }
+        });
+    </script>
+  </body>
+</html>
